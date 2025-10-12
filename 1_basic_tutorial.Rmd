@@ -59,6 +59,7 @@ library(patchwork)
 # co-expression network analysis packages:
 library(WGCNA)
 library(hdWGCNA)
+packageVersion("hdWGCNA")
 
 # using the cowplot theme for ggplot
 theme_set(theme_cowplot())
@@ -91,14 +92,11 @@ p <- DimPlot(seurat_obj, group.by='cell_type', label=TRUE) +
 p
 ```
 
-<img src="figures/basic_tutorial/umap_celltype.png" width="600" height="600">
-
-
 # Set up Seurat object for WGCNA
 
 Before running hdWGCNA, we first have to set up the Seurat object. Most of the
-information computed by hdWGCNA is stored in the Seurat object's `@misc` slot, and all of this information 
-can be retrieved by various getter and setter functions.
+information computed by hdWGCNA is stored in the Seurat object's `@misc` slot, and all of this information can be retrieved by various getter and setter functions.
+
 A single Seurat object can hold multiple hdWGCNA experiments, for example representing
 different cell types in the same single-cell dataset. Notably, since we consider
 hdWGCNA to be a downstream data analysis step, ***we do not support subsetting
@@ -128,6 +126,57 @@ seurat_obj <- SetupForWGCNA(
 )
 
 ```
+
+> What hdWGCNA does under the hood
+
+---
+
+## 🧠 What `SetupForWGCNA()` Does
+
+- Your **Seurat object** is the main container for all data and results.
+- When you run:
+  ```r
+  seurat_obj <- SetupForWGCNA(seurat_obj, ...)
+  ```
+  hdWGCNA creates an **hdWGCNA experiment** and stores all of its settings and results inside  
+  the Seurat object’s **`@misc` slot**.
+
+- The stored information includes:
+  - Selected genes and parameters
+  - The metacell Seurat object(s)
+  - Results from soft-power scans and TOM files
+  - Module eigengenes (MEs/hMEs), connectivity (kME), and related outputs
+
+- These elements can later be accessed with hdWGCNA’s **getter functions** such as:
+  - `GetPowerTable()`
+  - `GetModules()`
+  - `GetMEs()`
+  - `GetTOM()`
+
+---
+
+> “A single Seurat object can hold multiple hdWGCNA experiments”
+
+You can run more than one hdWGCNA analysis on the same Seurat object (e.g., one for INH neurons and another for EXC).
+
+Each one is given a distinct name via wgcna_name in SetupForWGCNA(...), and they all live side-by-side in @misc.
+
+Later functions (e.g., SetDatExpr, ConstructNetwork, etc.) act on the currently active hdWGCNA experiment (i.e., the one you created/last set up).
+
+> Why they say “don’t subset after SetupForWGCNA”
+
+After SetupForWGCNA, hdWGCNA caches references to the cells/genes it will operate on.
+
+If you subset, filter, or reorder the Seurat object after this (e.g., seurat_obj <- subset(seurat_obj, cell_type == "INH")), those cached references can break or become inconsistent (cell barcodes/indices change, features drop, etc.).
+
+Result: confusing errors, wrong mappings, or mismatched matrices later when you try ConstructNetwork(), ModuleEigengenes(), etc.
+
+The safe workflow (do this and you’ll be fine)
+
+1. Finish all your upstream Seurat work first
+
+NormalizeData → FindVariableFeatures → ScaleData → RunPCA → (optional RunHarmony) → RunUMAP → FindNeighbors/FindClusters → annotate cell types.
+Save a checkpoint:
 
 # Construct metacells
 
