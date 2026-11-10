@@ -29,7 +29,7 @@ The notebook was re-rendered in November 2026 with **R 4.5.3**, **Seurat 5.5.1**
 ## ▶️ Running the notebook
 
 1. Create the environment (R 4.5 with Seurat, WGCNA, UCell and harmony), then install hdWGCNA and ggradar from GitHub, as described in [`environment.yml`](environment.yml).
-2. Download `Zhou_2020_control.rds` (568 MB) from the [Google Drive folder](https://drive.google.com/drive/folders/1yxolklYrwFB9Snwr2Dp_W2eunBxaol4A?usp=sharing) linked in the hdWGCNA tutorial, and place it next to the notebook.
+2. Download `Zhou_2020_control.rds` (568 MB) from the [Google Drive folder](https://drive.google.com/drive/folders/1yxolklYrwFB9Snwr2Dp_W2eunBxaol4A?usp=sharing) linked in the hdWGCNA tutorial, and place it next to the notebook. Direct file link: <https://drive.google.com/uc?id=1Eb0ZaawtmUMrfSmNKrsPijibdaGcRDnh> (downloaded on 10 November 2026; MD5 `f934608c6dc194c356a5312c1b28020e`). From the command line: `gdown 1Eb0ZaawtmUMrfSmNKrsPijibdaGcRDnh -O Zhou_2020_control.rds`.
 3. Render `1_basic_tutorial.Rmd`. It needs about 30 GB of memory and took 13 minutes here. It writes the network (`TOM/`) and two saved objects (`hdWGCNA_object*.rds`, about 1 GB each); these are not stored in the repository.
 
 ## License and credits
