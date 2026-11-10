@@ -1,0 +1,15 @@
+# R and RStudio session files
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# knitr caches
+*_cache/
+
+# Tutorial data and objects saved by the notebook (see README)
+*.rds
+TOM/
+
+# OS files
+.DS_Store

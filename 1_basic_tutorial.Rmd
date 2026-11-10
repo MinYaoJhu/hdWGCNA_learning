@@ -48,7 +48,7 @@ Please download the file `Zhou_2020_control.rds` from this [Google Drive link](h
 First we will load the single-cell dataset and the required R libraries for this
 tutorial.
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 
 # single-cell analysis package
 library(Seurat)
@@ -446,9 +446,8 @@ profiles in two dimensions with UMAP.
 
 ```
 
-<img src="figures/basic_tutorial/umap_metacells.png" width="600" height="600">
 
-</details> <summary> </summary>
+</details>
 
 # Co-expression network analysis
 
@@ -520,7 +519,7 @@ sweep.
 
 The following code performs the parameter sweep and outputs a summary figure.
 
-```{r}
+```{r, fig.width=10, fig.height=8}
 
 # Test different soft powers:
 seurat_obj <- TestSoftPowers(
@@ -536,7 +535,6 @@ wrap_plots(plot_list, ncol=2)
 
 ```
 
-<img src="figures/basic_tutorial/softpower_ggplot.png" width="800" height="800">
 
 The general guidance for WGCNA and hdWGCNA is to pick the lowest soft power threshold
 that has a Scale Free Topology Model Fit greater than or equal to 0.8, so in this case
@@ -599,7 +597,6 @@ indicates the co-expression module assignment.
 PlotDendrogram(seurat_obj, main='INH hdWGCNA Dendrogram')
 ```
 
-<img src="figures/basic_tutorial/inh_dendro.png" width="600" height="600">
 
 ## Optional: inspect the topoligcal overlap matrix (TOM)
 
@@ -699,7 +696,7 @@ seurat_obj <- ModuleConnectivity(
 
 For convenience, we re-name the hdWGCNA modules to indicate that they are from
 the inhibitory neuron group. More information about renaming modules can be
-found in the [module customization tutorial](customization.html).
+found in the [module customization tutorial](https://smorabit.github.io/hdWGCNA/articles/customization.html).
 
 ```{r}
 
@@ -713,7 +710,7 @@ seurat_obj <- ResetModuleNames(
 
 We can visualize the genes in each module ranked by kME using the `PlotKMEs` function.
 
-```{r}
+```{r, fig.width=14, fig.height=10}
 
 # plot genes ranked by kME for each module
 p <- PlotKMEs(seurat_obj, ncol=5)
@@ -722,7 +719,6 @@ p
 
 ```
 
-<img src="figures/basic_tutorial/kME_distributions.png" width="800" height="800">
 
 
 ## Getting the module assignment table
@@ -818,7 +814,7 @@ directly on the dimensionality reduction. hdWGCNA includes the `ModuleFeaturePlo
 function to consruct FeaturePlots for each co-expression module colored by each
 module's uniquely assigned color.
 
-```{r}
+```{r, fig.width=14, fig.height=10}
 
 # make a featureplot of hMEs for each module
 plot_list <- ModuleFeaturePlot(
@@ -835,7 +831,7 @@ wrap_plots(plot_list, ncol=6)
 
 We can also plot the hub gene signature score using the same function:
 
-```{r}
+```{r, fig.width=14, fig.height=10}
 
 # make a featureplot of hub scores for each module
 plot_list <- ModuleFeaturePlot(
@@ -850,13 +846,12 @@ wrap_plots(plot_list, ncol=6)
 
 ```
 
-<img src="figures/basic_tutorial/ME_featureplot_scores.png" width="800" height="800">
 
 We can also use a radar plot to visualize the relative expression level of each module 
 across different cell groupings. Here we use the function `ModuleRadarPlot` to 
 visualize the expression of these modules in the INH subclusters. 
 
-```{r}
+```{r, fig.width=16, fig.height=14}
 
 seurat_obj$cluster <- do.call(rbind, strsplit(as.character(seurat_obj$annotation), ' '))[,1]
 
@@ -870,7 +865,6 @@ ModuleRadarPlot(
 
 ```
 
-<img src="figures/basic_tutorial/ggradar_avg.png" width="800" height="800">
 
 Here we can easily visualize which modules are shared across different INH subtypes,
 like module INH-M1, as well as modules that are expressed more specifically in 
@@ -881,14 +875,13 @@ visualize too many cell groups at once.
 
 hdWGCNA includes the `ModuleCorrelogram` function to visualize the correlation between each module based on their hMEs, MEs, or hub gene scores using the R package [corrplot](https://rpubs.com/melike/corrplot).
 
-```{r}
+```{r, fig.width=9, fig.height=9}
 
 # plot module correlagram
 ModuleCorrelogram(seurat_obj)
 
 ```
 
-<img src="figures/basic_tutorial/ME_correlogram.png" width="800" height="800">
 
 </details>
 
@@ -915,7 +908,7 @@ seurat_obj@meta.data <- cbind(seurat_obj@meta.data, MEs)
 
 Now we can easily use Seurat's `DotPlot` function:
 
-```{r}
+```{r, fig.width=10, fig.height=6}
 
 # plot with Seurat's DotPlot function
 p <- DotPlot(seurat_obj, features=mods, group.by = 'cell_type')
@@ -930,7 +923,6 @@ p
 
 ```
 
-<img src="figures/basic_tutorial/ME_dotplot.png" width="700" height="700">
 
 
 <!-- Here is another example where we use Seurat's `VlnPlot` function:
@@ -962,22 +954,28 @@ p
 
 Now that you have constructed a co-expression network and identified gene modules, there are many downstream analysis tasks which you can take advantage of within hdWGCNA. To provide more depth to your co-expression modules, we encourage you to explore the network visualization tutorial and the enrichment analysis tutorial.
 
-* [Network visualization tutorial](network_visualizations.html)
-* [Enrichment tutorial](enrichment_analysis.html)
+* [Network visualization tutorial](https://smorabit.github.io/hdWGCNA/articles/network_visualizations.html)
+* [Enrichment tutorial](https://smorabit.github.io/hdWGCNA/articles/enrichment_analysis.html)
 
 To **compare different biological conditions** using hdWGCNA, check out the following tutorials.
 
 * [Differential module eigengene (DME) tutorial](differential_MEs.html)
-* [Module preservation tutorial](module_preservation.html)
-* [Module-trait correlation tutorial](module_trait_correlation.html)
+* [Module preservation tutorial](https://smorabit.github.io/hdWGCNA/articles/module_preservation.html)
+* [Module-trait correlation tutorial](https://smorabit.github.io/hdWGCNA/articles/module_trait_correlation.html)
 
 For more advanced analysis, such as **Transcription factor regulatory network analysis**, please check out the following tutorials.
 
-* [Transcription factor regulatory network analysis tutorial](tf_network.html)
-* [Protein-protein interaction tutorial](ppi_integration.html)
-* [Consensus network analysis tutorial](consensus_wgcna.html) 
+* [Transcription factor regulatory network analysis tutorial](https://smorabit.github.io/hdWGCNA/articles/tf_network.html)
+* [Protein-protein interaction tutorial](https://smorabit.github.io/hdWGCNA/articles/ppi_integration.html)
+* [Consensus network analysis tutorial](https://smorabit.github.io/hdWGCNA/articles/consensus_wgcna.html) 
 
 For those interested in running hdWGCNA using pseudobulk replicates rather than metacells, please check out this tutorial.
 
-* [hdWGCNA with pseudobulk tutorial](pseudobulk.html)
+* [hdWGCNA with pseudobulk tutorial](https://smorabit.github.io/hdWGCNA/articles/pseudobulk.html)
 
+
+# Session info
+
+```{r}
+sessionInfo()
+```

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240" role="img" aria-label="hdWGCNA tutorial notes badge">
+<defs></defs>
+<circle cx="120" cy="120" r="114" fill="#F3E9D2" stroke="#0F3B3A" stroke-width="7"/>
+<polygon points="116,100 116.0,50.0 159.3,75.0" fill="#0F3B3A" stroke="#F3E9D2" stroke-width="3" stroke-linejoin="round"/>
+<polygon points="116,100 159.3,75.0 159.3,125.0" fill="#2E8B83" stroke="#F3E9D2" stroke-width="3" stroke-linejoin="round"/>
+<polygon points="116,100 159.3,125.0 116.0,150.0" fill="#0F3B3A" stroke="#F3E9D2" stroke-width="3" stroke-linejoin="round"/>
+<polygon points="116,100 116.0,150.0 72.7,125.0" fill="#2E8B83" stroke="#F3E9D2" stroke-width="3" stroke-linejoin="round"/>
+<polygon points="116,100 72.7,125.0 72.7,75.0" fill="#0F3B3A" stroke="#F3E9D2" stroke-width="3" stroke-linejoin="round"/>
+<polygon points="138,90 94.7,65.0 138.0,40.0" fill="#E9967A" stroke="#F3E9D2" stroke-width="3" stroke-linejoin="round"/>
+<path d="M146,66 q10,6 4,16" fill="none" stroke="#E9967A" stroke-width="2.4" stroke-linecap="round"/>
+<circle cx="98" cy="108" r="4.5" fill="#7ED0C4"/>
+<circle cx="120" cy="126" r="4.5" fill="#F2C14E"/>
+<circle cx="92" cy="86" r="4.5" fill="#F2C14E"/>
+<circle cx="126" cy="106" r="4.5" fill="#7ED0C4"/>
+<circle cx="110" cy="70" r="4.5" fill="#B9A3D9"/>
+<text x="120" y="182" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#0F3B3A">hdWGCNA</text>
+<text x="120" y="201" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11" letter-spacing="2.2" fill="#2E8B83">TUTORIAL NOTES</text>
+</svg>

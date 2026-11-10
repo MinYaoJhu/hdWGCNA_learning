@@ -1,0 +1,32 @@
+# Environment used to render 1_basic_tutorial (November 2026).
+#   micromamba create -f environment.yml
+# Then install the two packages that are only distributed on GitHub:
+#   micromamba run -n hdwgcna-learning Rscript -e 'remotes::install_github("smorabit/hdWGCNA", upgrade="never")'   # 0.4.12
+#   micromamba run -n hdwgcna-learning Rscript -e 'remotes::install_github("ricardo-bion/ggradar", upgrade="never")' # 0.2, for ModuleRadarPlot()
+name: hdwgcna-learning
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - r-base=4.5
+  - r-seurat=5.5.1
+  - r-wgcna=1.74
+  - r-harmony=2.0.5
+  - bioconductor-ucell=2.14.0
+  - bioconductor-geneoverlap
+  - r-corrplot
+  - r-remotes
+  - r-rmarkdown
+  - r-knitr
+  - r-patchwork
+  - r-cowplot
+  - r-tidyverse
+  - r-rhpcblasctl
+  - r-future
+  - r-igraph
+  - r-ggraph
+  - r-tidygraph
+  - r-ggrepel
+  - r-proxy
+  - r-qlcmatrix
+  - pandoc
